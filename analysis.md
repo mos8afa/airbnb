@@ -8,16 +8,13 @@ ______________________________________
     - main img
     - images *
     - place *
-
     - rating *:
         - show ratings
         - add rate 
         - avg rating
-
     - Booking *:
         - Book
         - check availability
-
     - related rooms
 ______________________________________
 ______________________________________
@@ -30,7 +27,6 @@ ______________________________________
     - author
     - categories *
     - image
-
     - comments *:
         - show comments 
         - add comment
@@ -41,7 +37,6 @@ ______________________________________
     - What we do 
     - our mission
     - our goals
-   
     - faqs:
         - title
         - description
