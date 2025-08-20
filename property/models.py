@@ -67,7 +67,7 @@ class PropertyReview(models.Model):
 
 
 COUNT = (
-    
+    (0,0),
     (1,1),
     (2,2),
     (3,3),

@@ -36,5 +36,5 @@ class PropertyDetails(FormMixin, DetailView):
             myform.property = self.get_object()
             myform.user = request.user
             myform.save()
-            return redirect('/')
+            return redirect('/property/')
     
