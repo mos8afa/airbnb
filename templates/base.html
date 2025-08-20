@@ -48,7 +48,7 @@
       id="ftco-navbar"
     >
       <div class="container">
-        <a class="navbar-brand" href="index.html">dirEngine.</a>
+        <a class="navbar-brand" href="index.html">{{footer.site_name}}.</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -99,22 +99,21 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">dirEngine</h2>
+              <h2 class="ftco-heading-2">{{footer.site_name}}</h2>
               <p>
-                Far far away, behind the word mountains, far from the countries
-                Vokalia and Consonantia, there live the blind texts.
+                {{footer.description}}
               </p>
               <ul
                 class="ftco-footer-social list-unstyled float-md-left float-lft mt-5"
               >
                 <li class="ftco-animate">
-                  <a href="#"><span class="icon-twitter"></span></a>
+                  <a href="{{footer.x_link}}"><span class="icon-twitter"></span></a>
                 </li>
                 <li class="ftco-animate">
-                  <a href="#"><span class="icon-facebook"></span></a>
+                  <a href="{{footer.fb_link}}"><span class="icon-facebook"></span></a>
                 </li>
                 <li class="ftco-animate">
-                  <a href="#"><span class="icon-instagram"></span></a>
+                  <a href="{{footer.instagram_link}}"><span class="icon-instagram"></span></a>
                 </li>
               </ul>
             </div>
@@ -156,20 +155,19 @@
                   <li>
                     <span class="icon icon-map-marker"></span
                     ><span class="text"
-                      >203 Fake St. Mountain View, San Francisco, California,
-                      USA</span
+                      >{{footer.address}}</span
                     >
                   </li>
                   <li>
                     <a href="#"
                       ><span class="icon icon-phone"></span
-                      ><span class="text">+2 392 3929 210</span></a
+                      ><span class="text">{{footer.phone}}</span></a
                     >
                   </li>
                   <li>
                     <a href="#"
                       ><span class="icon icon-envelope"></span
-                      ><span class="text">info@yourdomain.com</span></a
+                      ><span class="text">{{footer.email}}</span></a
                     >
                   </li>
                 </ul>
@@ -185,10 +183,7 @@
               <script>
                 document.write(new Date().getFullYear());
               </script>
-              All rights reserved | This template is made with
-              <i class="icon-heart" aria-hidden="true"></i> by
-              <a href="https://colorlib.com" target="_blank">Colorlib</a>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              
             </p>
           </div>
         </div>
