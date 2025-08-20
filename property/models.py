@@ -40,9 +40,16 @@ class PropertyImages(models.Model):
 class Place(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='places/')
+    slug = models.SlugField(null=True,blank=True)
+
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug :
+            self.slug = slugify(self.name)
+        super(Place, self).save(*args, **kwargs)
 
 
 

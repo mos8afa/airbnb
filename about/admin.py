@@ -1,7 +1,10 @@
 from django.contrib import admin
-from .models import About , FAQS
+from . import models
 
-admin.site.register(About)
-admin.site.register(FAQS)
+admin.site.register(models.WhatWeDo)
+admin.site.register(models.Faqs)
+admin.site.register(models.OurGoals)
+admin.site.register(models.OurMission)
+admin.site.register(models.AboutImage)
 
 
