@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f6fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+    .login-box h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    label {
+      font-size: 14px;
+      color: #555;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    input[type="submit"] {
+      width: 100%;
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    input[type="submit"]:hover {
+      background: #45a049;
+    }
+    .error-msg, .info-msg {
+      margin-bottom: 10px;
+      color: #e74c3c;
+      font-size: 14px;
+    }
+    .info-msg {
+      color: #555;
+    }
+    a {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login</h2>
+
+    {% if form.errors %}
+      <p class="error-msg">Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    {% if next %}
+      {% if user.is_authenticated %}
+        <p class="error-msg">Your account doesn't have access to this page. Please login with an authorized account.</p>
+      {% else %}
+        <p class="info-msg">Please login to see this page.</p>
+      {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+      </div>
+      <input type="submit" value="Login">
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+    <a href="{% url 'password_reset' %}">Lost password?</a>
+    <a href="{% url 'accounts:signup' %}">Don't have an account?</a>
+  </div>
+</body>
+</html>

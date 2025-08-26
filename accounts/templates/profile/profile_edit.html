@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('{% static "images/bg_1.jpg" %}'); 
+      background-size: cover;
+      background-position: center; 
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px 0;
+    }
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: inherit; 
+        background-size: cover;
+        background-position: center;
+        filter: blur(8px); 
+        z-index: -1; 
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 500px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input, textarea, select {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      width: 100%;
+    }
+    input:focus, textarea:focus {
+      border-color: #74ebd5;
+    }
+    .btn {
+      background: #74ebd5;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #4bb8a9;
+      color: #fff;
+    }
+    .profile-pic {
+      display: block;
+      margin: 0 auto 15px auto;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border: 3px solid #74ebd5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Edit Profile</h2>
+
+    {% if profile_form.instance.image %}
+      <img src="{{ profile_form.instance.image.url }}" class="profile-pic" alt="Profile Picture">
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <input type="text" name="{{ user_form.username.name }}" value="{{ user_form.username.value }}" placeholder="Username">
+      <input type="email" name="{{ user_form.email.name }}" value="{{ user_form.email.value }}" placeholder="Email">
+      <input type="text" name="{{ user_form.first_name.name }}" value="{{ user_form.first_name.value }}" placeholder="First Name">
+      <input type="text" name="{{ user_form.last_name.name }}" value="{{ user_form.last_name.value }}" placeholder="Last Name">
+
+      <input type="text" name="{{ profile_form.phone_number.name }}" value="{{ profile_form.phone_number.value }}" placeholder="Phone">
+      <input type="text" name="{{ profile_form.address.name }}" value="{{ profile_form.address.value }}" placeholder="Address">
+      <input type="file" name="{{ profile_form.image.name }}">
+
+      <button type="submit" class="btn">Save Changes</button>
+    </form>
+  </div>
+</body>
+</html>

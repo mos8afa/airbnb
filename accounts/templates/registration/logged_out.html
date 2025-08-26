@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logged out</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f6fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .logout-box {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    .logout-box h2 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+    a {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 20px;
+      background: #3498db;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    a:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  {% csrf_token %}
+  <div class="logout-box">
+    <h2>Logged out!</h2>
+    <a href="{% url 'accounts:signup' %}">Click here to login again</a>
+  </div>
+</body>
+</html>

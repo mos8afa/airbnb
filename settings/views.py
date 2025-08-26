@@ -1,17 +1,19 @@
 from django.shortcuts import render
 from property import models
+from . models import Settings
 from django.db.models.query_utils import Q
 from django.db.models import Count
 from blog.models import  Post
 from django.contrib.auth.models import User
 
 def home(request):
-    posts = Post.objects.all()
+    posts = Post.objects.order_by('-created_at')[:4]
     places = models.Place.objects.all().annotate(property_count = Count('property_place'))
     categories = models.Category.objects.all()
     users_count = User.objects.all().count()
     hotels_count = models.Property.objects.all().count()
     places_count = models.Place.objects.all().count()
+    settings =  Settings.objects.last()
     return render(request, 'settings/home.html', {
     'places': places,
     'categories': categories,
@@ -19,6 +21,7 @@ def home(request):
     'users_count':users_count,
     'hotels_count':hotels_count,
     'places_count':places_count,
+    'settings' : settings,
 })
 
 

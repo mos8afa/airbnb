@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DirEngine - Free Bootstrap 4 Template by Colorlib</title>
+    <title>{{settings.site_name}}</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -45,8 +45,7 @@
   <body>
     <nav
       class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-      id="ftco-navbar"
-    >
+      id="ftco-navbar">
       <div class="container">
         <a class="navbar-brand" href="index.html">{{footer.site_name}}.</a>
         <button
@@ -56,8 +55,8 @@
           data-target="#ftco-nav"
           aria-controls="ftco-nav"
           aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+          aria-label="Toggle navigation">
+        
           <span class="oi oi-menu"></span> Menu
         </button>
 
@@ -79,15 +78,28 @@
               <a href="contact.html" class="nav-link">Contact</a>
             </li>
             <li class="nav-item cta">
-              <a href="contact.html" class="nav-link"
-                ><span>Add listing</span></a
-              >
+              <a href="contact.html" class="nav-link" ><span>Add listing</span></a>
             </li>
+            {% if request.user.is_authenticated %}
+              <li class="nav-item cta">
+                <a href="{% url 'accounts:profile' %}" class="nav-link" ><span>Profile</span></a>
+              </li>
+               <li class="nav-item cta">
+                <a href="{% url 'accounts:reservations' %}" class="nav-link" ><span>Reservations</span></a>
+              </li>
+            {% else %}
+              <li class="nav-item cta">
+                <a href="{% url 'accounts:signup' %}" class="nav-link" ><span>Signup</span></a>
+              </li>
+              <li class="nav-item cta">
+                <a href="{% url 'login' %}" class="nav-link" ><span>Login</span></a>
+              </li>
+            {% endif %}
           </ul>
         </div>
-      </div>
+      </div>ا
     </nav>
-    <!-- END nav -->
+   
      {% block body %}
      
      {% endblock %}
@@ -175,7 +187,6 @@
         <div class="row">
           <div class="col-md-12 text-center">
             <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
               Copyright &copy;
               <script>
                 document.write(new Date().getFullYear());
@@ -187,7 +198,7 @@
       </div>
     </footer>
 
-    <!-- loader -->
+
     <div id="ftco-loader" class="show fullscreen">
       <svg class="circular" width="48px" height="48px">
         <circle
