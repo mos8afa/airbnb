@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import Property
 from .forms import PropertyBookForm
 from .filters import PropertyFilter
-from django_filters.views import FilterView
+from django_filters.views import  FilterView
 
 class PropertyList(FilterView):
     model = Property
