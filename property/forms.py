@@ -1,5 +1,5 @@
 from django import forms
-from .models import PropertyBook
+from .models import PropertyBook 
 from django.utils import timezone
 
 class PropertyBookForm(forms.ModelForm):
@@ -37,3 +37,6 @@ class PropertyBookForm(forms.ModelForm):
                 raise forms.ValidationError("Property is required to check availability")
 
         return cleaned_data
+    
+
+

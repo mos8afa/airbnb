@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<div class="hero-wrap js-fullheight" style="background-image: url({% static 'images/bg_2.jpg' %});">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+      <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+        <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+          <span class="mr-2"><a href="{% url 'settings:home' %}">Home</a></span>
+          <span>Add Hotel</span>
+        </p>
+        <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Add Hotel</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h3 class="mb-4 text-center">Add Hotel</h3>
+
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="mb-3">
+                <label class="form-label">{{ field.label }}</label>
+                <div class="d-flex gap-2">
+                  {{ field }}
+                  {% if field.name == "category" %}
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                      + Add Category
+                    </button>
+                  {% endif %}
+                  {% if field.name == "place" %}
+                    <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPlaceModal">
+                      + Add Place
+                    </button>
+                  {% endif %}
+                </div>
+                {% if field.errors %}
+                  <div class="text-danger small">{{ field.errors|striptags }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg rounded-3">Save Hotel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal: Add Category -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-4">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="categoryForm" method="post" action="{% url 'accounts:add_category' %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          {{ category_form.as_p }}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Add Place -->
+<div class="modal fade" id="addPlaceModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-4">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Place</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="placeForm" method="post" enctype="multipart/form-data" action="{% url 'accounts:add_place' %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          {{ place_form.as_p }}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save Place</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+function handleAjaxForm(formId, modalId, selectId) {
+  document.getElementById(formId).addEventListener("submit", function(e) {
+    e.preventDefault();
+    let formData = new FormData(this);
+
+    fetch(this.action, { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if (data.id) {
+        let select = document.getElementById(selectId);
+        let option = document.createElement("option");
+        option.value = data.id;
+        option.text = data.name;
+        option.selected = true;
+        select.appendChild(option);
+
+        bootstrap.Modal.getInstance(document.getElementById(modalId)).hide();
+      }
+    });
+  });
+}
+
+
+handleAjaxForm("categoryForm", "addCategoryModal", "id_category");
+handleAjaxForm("placeForm", "addPlaceModal", "id_place");
+</script>
+{% endblock %}

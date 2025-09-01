@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import ListView , DetailView
 from . models import Post , Category
 from taggit.models import Tag
 from django.db.models import Count
 from django.db.models.query_utils import Q
+from.froms import AddPost, AddCategory
+from django.urls import reverse
+from django.http import JsonResponse
 
 class postList(ListView):
     model = Post
@@ -49,4 +52,39 @@ class PostByTag(ListView):
         )
         return object_list
 
+
+def add_post(request):
+    if request.method == 'POST':
+        post_form = AddPost(request.POST,request.FILES)
+        if post_form.is_valid():
+            post_form.instance.author = request.user
+            post_form.save()
+            return redirect(reverse('blog:post_list'))
+    else:
+        post_form = AddPost()
+
+    category_form = AddCategory()
+
+    return render(request, "blog/add_post.html", {
+        "post_form": post_form,
+        "category_form": category_form,
+    })
+
+def add_category(request):
+    if request.method == 'POST':
+        category_form = AddCategory(request.POST)
+        if category_form.is_valid():
+            category_form.instance.author = request.user
+            category = category_form.save()
+
+            return JsonResponse({
+                "id": category.id,
+                "name": category.name
+            })
+        else:
+            return JsonResponse({"errors": category_form.errors}, status=400)
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+            
 

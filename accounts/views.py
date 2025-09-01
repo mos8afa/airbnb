@@ -1,10 +1,12 @@
 from django.shortcuts import redirect, render
 from .models import Profile 
 from .forms import UserForm , ProfileForm , UserCreateForm
-from property.models import PropertyBook , Property
+from property.models import Property ,PropertyBook
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from .forms import AddList ,AddCategory, AddPlace
+from django.http import JsonResponse
 
 def signup(request):
     if request.method == 'POST':
@@ -64,6 +66,51 @@ def my_list(request):
     return render(request,'profile/my_list.html',{'my_list' : my_list})
 
 
+def add_list(request):
+    if request.method == 'POST':
+        form = AddList(request.POST,request.FILES)
+        if form.is_valid():
+            form.instance.owner = request.user
+            form.save()
+            return redirect(reverse('accounts:list'))
+    
+    else:
+        form = AddList()
+
+    category_form = AddCategory()
+    place_form = AddPlace()
+
+    return render(request, "profile/add_list.html", {
+        "form": form,
+        "category_form": category_form,
+        "place_form": place_form,
+    })
+
+def add_category(request):
+    if request.method == "POST":
+        form = AddCategory(request.POST)
+        if form.is_valid():
+            category = form.save()
+            return JsonResponse({
+                "id": category.id,
+                "name": category.name
+            })
+        else:
+            return JsonResponse({"errors": form.errors}, status=400)
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+def add_place(request):
+    if request.method == "POST":
+        form = AddPlace(request.POST, request.FILES)
+        if form.is_valid():
+            place = form.save()
+            return JsonResponse({
+                "id": place.id,
+                "name": place.name
+            })
+        else:
+            return JsonResponse({"errors": form.errors}, status=400)
+    return JsonResponse({"error": "Invalid request"}, status=400)
 
 
 

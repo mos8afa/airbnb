@@ -48,3 +48,4 @@ class PropertyDetails(FormMixin, DetailView):
         except ObjectDoesNotExist:
             messages.error(request, "Property not found.")
             return redirect('/property/')
+        
