@@ -83,9 +83,9 @@ python manage.py runserver
 
 ## 🔮 Future Plans
 
-💳 Add a payment system for bookings
-🏨 Implement hotel room management (add rooms & availability)
-⭐ Add room and hotel rating system
+* 💳 Add a payment system for bookings
+* 🏨 Implement hotel room management (add rooms & availability)
+* ⭐ Add room and hotel rating system
 
 👤 Author
 
