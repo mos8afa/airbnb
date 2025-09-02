@@ -44,91 +44,6 @@
             <input type="submit" />
           </form>
         </div>
-        <div class="sidebar-wrap bg-light ftco-animate">
-          <h3 class="heading mb-4">Star Rating</h3>
-          <form method="post" class="star-rating">
-            <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="exampleCheck1"
-              />
-              <label class="form-check-label" for="exampleCheck1">
-                <p class="rate">
-                  <span
-                    ><i class="icon-star"></i><i class="icon-star"></i
-                    ><i class="icon-star"></i><i class="icon-star"></i
-                    ><i class="icon-star"></i
-                  ></span>
-                </p>
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="exampleCheck2"
-              />
-              <label class="form-check-label" for="exampleCheck2">
-                <p class="rate">
-                  <span
-                    ><i class="icon-star"></i><i class="icon-star"></i
-                    ><i class="icon-star"></i><i class="icon-star"></i
-                    ><i class="icon-star-o"></i
-                  ></span>
-                </p>
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="exampleCheck3"
-              />
-              <label class="form-check-label" for="exampleCheck3">
-                <p class="rate">
-                  <span
-                    ><i class="icon-star"></i><i class="icon-star"></i
-                    ><i class="icon-star"></i><i class="icon-star-o"></i
-                    ><i class="icon-star-o"></i
-                  ></span>
-                </p>
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="exampleCheck4"
-              />
-              <label class="form-check-label" for="exampleCheck4">
-                <p class="rate">
-                  <span
-                    ><i class="icon-star"></i><i class="icon-star"></i
-                    ><i class="icon-star-o"></i><i class="icon-star-o"></i
-                    ><i class="icon-star-o"></i
-                  ></span>
-                </p>
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="exampleCheck5"
-              />
-              <label class="form-check-label" for="exampleCheck5">
-                <p class="rate">
-                  <span
-                    ><i class="icon-star"></i><i class="icon-star-o"></i
-                    ><i class="icon-star-o"></i><i class="icon-star-o"></i
-                    ><i class="icon-star-o"></i
-                  ></span>
-                </p>
-              </label>
-            </div>
-          </form>
-        </div>
       </div>
 
       <!-- Hotels List -->
@@ -154,9 +69,6 @@
                     <h3>
                       <a href="{{property.get_absolute_url}}">{{property}}</a>
                     </h3>
-                    <p class="rate">
-                      {{property.get_avg_rate}}
-                    </p>
                   </div>
                   <div class="two">
                     <span class="price per-price"

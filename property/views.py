@@ -1,13 +1,14 @@
 from django.contrib import messages
-from django.shortcuts import redirect, render
-from django.urls import reverse
-from django.views.generic import ListView, DetailView
+from django.shortcuts import redirect
+from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Property
-from .forms import PropertyBookForm
+from django.contrib import messages
+from .models import Property 
+from .forms import PropertyBookForm 
 from .filters import PropertyFilter
 from django_filters.views import  FilterView
+
 
 class PropertyList(FilterView):
     model = Property

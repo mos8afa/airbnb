@@ -1,0 +1,8 @@
+
+{% csrf_token %}
+<div class="container mt-5 text-center">
+    <h2>Account Activated!</h2>
+    <p>Hi {{ user.username }}, your account has been successfully activated.</p>
+    <a href="{% url 'accounts:profile' %}" class="btn btn-primary mt-3">Go to your Profile</a>
+</div>
+

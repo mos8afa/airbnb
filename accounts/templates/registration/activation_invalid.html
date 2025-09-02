@@ -1,0 +1,12 @@
+
+{% csrf_token %}
+
+<div class="container mt-5">
+    <h2>Invalid Activation Link</h2>
+    <p>
+        The activation link is invalid or has expired.<br>
+        Please make sure you copied the full link from your email.
+    </p>
+    <p>If the problem persists, you can <a href="{% url 'accounts:signup' %}">sign up again</a>.</p>
+</div>
+

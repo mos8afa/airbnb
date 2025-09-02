@@ -26,26 +26,6 @@ class Property(models.Model):
     
     def get_absolute_url(self):
         return reverse('property:property_details',kwargs={'slug':self.slug})
-    
-    def get_avg_rate(self):
-        all_ratings = self.review_property.all()
-        sum = 0
-        stars_html = ''
-        if len(all_ratings) > 0 :
-            for rate in all_ratings:
-                sum += rate.rate
-            avg = round(sum / len(all_ratings),1)
-            full_stars = int(avg)
-            half_star = 1 if avg - full_stars >= 0.5 else 0 
-            empty_stars = 5 - full_stars - half_star
-            stars_html += '<i class="icon-star"></i>' * full_stars
-            stars_html += '<i class="icon-star-half"></i>' * half_star
-            stars_html += '<i class="icon-star-o"></i>' * empty_stars
-
-            return format_html(stars_html)
-        else:
-            stars_html = '<i class="icon-star-o"></i>' * 5
-            return format_html(stars_html)
         
     def check_availability(self):
         reservations = self.book_property.all()
@@ -61,12 +41,6 @@ class Property(models.Model):
                 return f'This room is available until {date_from} or starting from the end of {date_to}'
             
         return 'Available'
-
-
-
-
-
-    
 
 
 class PropertyImages(models.Model):
@@ -100,23 +74,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
-
-RATING_CHOICES = [(i, str(i)) for i in range(6)]  # 0,1,2,3,4,5
-
-class PropertyReview(models.Model):
-    author = models.ForeignKey(User,related_name='user_review',on_delete=models.CASCADE)
-    property = models.ForeignKey(Property,related_name='review_property',on_delete=models.CASCADE)
-    rate = models.IntegerField(default=0,choices=RATING_CHOICES)
-    feedback = models.TextField(max_length=300)
-    created_at = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return str(self.property)
-    
-    
-
-
 
 COUNT = (
     (0,0),

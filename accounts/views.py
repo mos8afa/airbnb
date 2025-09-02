@@ -3,27 +3,59 @@ from .models import Profile
 from .forms import UserForm , ProfileForm , UserCreateForm
 from property.models import Property ,PropertyBook
 from django.urls import reverse
-from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .forms import AddList ,AddCategory, AddPlace
 from django.http import JsonResponse
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.utils.http import urlsafe_base64_decode
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def signup(request):
     if request.method == 'POST':
         signup_form = UserCreateForm(request.POST)
         if signup_form.is_valid():
-            signup_form.save()
-            # return redirect(reverse('login'))
-            username = signup_form.cleaned_data['username']
-            password = signup_form.cleaned_data['password1']
-            user = authenticate(username=username,password=password)
-            login(request,user)
-            return redirect(reverse('accounts:profile'))
+            user = signup_form.save(commit=False)
+            user.is_active = False  
+            user.save()
+
+            current_site = get_current_site(request)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            activation_link = f"http://127.0.0.1:8000/accounts/activate/{uid}/{token}/"
+
+            subject = 'Activate your account'
+            message = f"Hi {user.username},\n\nPlease click the link below to activate your account:\n{activation_link}\n\nIf this email isn't yours, please ignore this message."
+            send_mail(subject, message, None, [user.email], fail_silently=False)
+
+            return render(request, 'registration/activation_sent.html', {'email': user.email})
     
     else:
         signup_form = UserCreateForm()
 
     return render(request,'registration/signup.html',{'signup_form':signup_form})
+
+def activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user) 
+        return render(request, 'registration/activation_success.html', {'user': user})
+    else:
+        return render(request, 'registration/activation_invalid.html')
 
 
 

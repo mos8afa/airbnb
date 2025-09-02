@@ -39,4 +39,3 @@ class PropertyBookForm(forms.ModelForm):
         return cleaned_data
     
 
-
