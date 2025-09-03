@@ -74,9 +74,6 @@
             <li class="nav-item">
               <a href="{% url 'blog:post_list' %}" class="nav-link">Blog</a>
             </li>
-            <li class="nav-item">
-              <a href="{% url 'contact:contact' %}" class="nav-link">Contact</a>
-            </li>
             {% if request.user.is_authenticated %}
               <li class="nav-item">
                 <a href="{% url 'accounts:profile' %}" class="nav-link" ><span>Profile</span></a>
@@ -101,8 +98,7 @@
           </ul>
         </div>
       </div>ا
-    </nav>
-   
+    </nav>   
      {% block body %}
      
      {% endblock %}
@@ -115,19 +111,6 @@
               <p>
                 {{footer.description}}
               </p>
-              <ul
-                class="ftco-footer-social list-unstyled float-md-left float-lft mt-5"
-              >
-                <li class="ftco-animate">
-                  <a href="{{footer.x_link}}"><span class="icon-twitter"></span></a>
-                </li>
-                <li class="ftco-animate">
-                  <a href="{{footer.fb_link}}"><span class="icon-facebook"></span></a>
-                </li>
-                <li class="ftco-animate">
-                  <a href="{{footer.instagram_link}}"><span class="icon-instagram"></span></a>
-                </li>
-              </ul>
             </div>
           </div>
           <div class="col-md">
@@ -135,15 +118,13 @@
               <h2 class="ftco-heading-2">Information</h2>
               <ul class="list-unstyled">
                 <li><a href="{% url 'about:about' %}" class="py-2 d-block">About</a></li>
+                <!--
                 <li><a href="#" class="py-2 d-block">Service</a></li>
                 <li>
                   <a href="#" class="py-2 d-block">Terms and Conditions</a>
                 </li>
-                <li><a href="#" class="py-2 d-block">Become a partner</a></li>
-                <li>
-                  <a href="#" class="py-2 d-block">Best Price Guarantee</a>
-                </li>
                 <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+                -->
               </ul>
             </div>
           </div>
@@ -152,10 +133,13 @@
               <h2 class="ftco-heading-2">Customer Support</h2>
               <ul class="list-unstyled">
                 <li><a href="{% url 'about:about' %}" class="py-2 d-block">FAQ</a></li>
+                <!--
                 <li><a href="#" class="py-2 d-block">Payment Option</a></li>
                 <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
                 <li><a href="#" class="py-2 d-block">How it works</a></li>
                 <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                -->
+
               </ul>
             </div>
           </div>
@@ -184,6 +168,15 @@
                   </li>
                 </ul>
               </div>
+              
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                      <li class="ftco-animate">
+                        <a href="{{footer.fb_link}}"><span class="icon-facebook"></span></a>
+                      </li>
+                      <li class="ftco-animate">
+                        <a href="{{footer.instagram_link}}"><span class="icon-instagram"></span></a>
+                      </li>
+                    </ul>
             </div>
           </div>
         </div>
