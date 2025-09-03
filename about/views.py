@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from . import models
-from django.views.generic import ListView
 
 def about(request):
     what_we_do = models.WhatWeDo.objects.last()
@@ -16,6 +15,5 @@ def about(request):
         'image':image,
         'faqs':faqs
     })
-
 
 
